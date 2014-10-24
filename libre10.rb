@@ -40,6 +40,7 @@ class Libre10 < Formula
     resource("prequests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     
+    system "./configure", "--prefix=#{prefix}","--solr=http://localhost:8983/solr"
     # ENV.deparallelize  # if your formula fails when building in parallel
 
     # Remove unrecognized options if warned by configure
