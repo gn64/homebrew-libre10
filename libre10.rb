@@ -10,7 +10,7 @@ class Libre10 < Formula
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
-  head 'https://bitbucket.org/gn64/libre10.git', :branch => 'master'
+  head 'https://bitbucket.org/gn64/libre10.git', :branch => 'develop'
   # depends_on "cmake" => :build
   depends_on "libtiff" 
   depends_on "libjpeg"
