@@ -3,7 +3,7 @@ require "formula"
 # Documentation: https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-HOMEBREW_BREWALL_VERSION = '1.0.1'
+HOMEBREW_BREWALL_VERSION = '1.1.0'
 class Libre10 < Formula
   homepage ""
 
@@ -19,6 +19,7 @@ class Libre10 < Formula
   depends_on "graphicsmagick" 
   depends_on "poppler" 
   depends_on "libjpeg-turbo"
+  depends_on :java => "1.7"
 
   resource "pycrypto" do
     url "https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.tar.gz"
@@ -35,23 +36,19 @@ class Libre10 < Formula
     sha1 ""
   end
 
+  resource "docopt" do
+    url "https://pypi.python.org/packages/source/d/docopt/docopt-0.6.2.tar.gz"
+    sha1 ""
+
   def install
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("prequests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    
-    # ENV.deparallelize  # if your formula fails when building in parallel
-
-    # Remove unrecognized options if warned by configure
-    #system "./configure", "--disable-debug",
-    #                      "--disable-dependency-tracking",
-    #                      "--disable-silent-rules",
-    #                      "--prefix=#{prefix}"
-    # system "cmake", ".", *std_cmake_args
-    #system "make", "install" # if this fails, try separate make/make install steps
+    resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    system "python ./www/libre10_exec.py install --data-dir=#{share} --bin-dir=#{bin} --www-dir=#{prefix}/www"
   end
 
-  test do
+  #test do
     # `test do` will create, run in and delete a temporary directory.
     #
     # This test will fail and we won't accept that! It's enough to just replace
@@ -61,6 +58,6 @@ class Libre10 < Formula
     #
     # The installed folder is not in the path, so use the entire path to any
     # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "false"
-  end
+  #  system "false"
+  #end
 end
