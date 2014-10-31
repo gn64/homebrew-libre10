@@ -6,7 +6,7 @@ require "formula"
 HOMEBREW_BREWALL_VERSION = '1.1.0'
 class Libre10 < Formula
   homepage ""
-
+  version "0.8"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
@@ -50,7 +50,7 @@ class Libre10 < Formula
     #resource("prequests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     #resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     #resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    system "python ./www/libre10_exec.py install --data-dir=#{share} --bin-dir=#{bin} --www-dir=#{prefix}/www --enable-jetty-bin --enable-wsgi-bin"
+    system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www --enable-jetty-bin --enable-wsgi-bin"
 
   end
 
