@@ -50,7 +50,7 @@ class Libre10 < Formula
     #resource("prequests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     #resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     #resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    system "python ./www/libre10_exec.py install --data-dir=#{share} --bin-dir=#{bin} --www-dir=#{prefix}/www"
+    system "python ./www/libre10_exec.py install --data-dir=#{share} --bin-dir=#{bin} --www-dir=#{prefix}/www --enable-jetty-bin --enable-wsgi-bin"
 
   end
 
