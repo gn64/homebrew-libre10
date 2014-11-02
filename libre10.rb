@@ -6,11 +6,11 @@ require "formula"
 HOMEBREW_BREWALL_VERSION = '1.1.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "0.8"
+  version "0.9"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
-  head 'https://bitbucket.org/gn64/libre10.git', :branch => 'develop'
+  head 'https://bitbucket.org/gn64/libre10.git', :branch => 'release/1.1.0'
   depends_on "libtiff" 
   depends_on "libjpeg"
   depends_on "webp" 
@@ -25,6 +25,8 @@ class Libre10 < Formula
   depends_on 'docopt' => :python
 
   def install
+    inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
+    system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
     system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www"
 
   end
