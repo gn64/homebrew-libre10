@@ -49,6 +49,11 @@ class Libre10 < Formula
     url "https://pypi.python.org/packages/source/C/CherryPy/CherryPy-3.6.0.tar.gz"
     sha1 "bbbeb4e2bb81cb37049a32f78c6cb151b12d7857"
   end
+  
+  resource "sqlalchemy" do
+    url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.9.8.tar.gz"
+    sha1 ""
+  end
     
   def install
     ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
@@ -59,6 +64,7 @@ class Libre10 < Formula
     #resource("cherrypy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("requests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
     #system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
