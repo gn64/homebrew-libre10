@@ -6,7 +6,7 @@ require "formula"
 HOMEBREW_BREWALL_VERSION = '1.1.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "0.9"
+  version "1.1.0"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
@@ -52,7 +52,7 @@ class Libre10 < Formula
   
   resource "sqlalchemy" do
     url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.9.8.tar.gz"
-    sha1 ""
+    sha1 "19ff863f54904c5eafb9d88960939842578f851c"
   end
     
   def install
@@ -61,10 +61,10 @@ class Libre10 < Formula
     ENV.prepend_create_path "PYTHONPATH", prefix+"lib/python2.7/site-packages"
     resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    #resource("cherrypy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("cherrypy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("requests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    #resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
     #system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
