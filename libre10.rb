@@ -3,10 +3,10 @@ require "formula"
 # Documentation: https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-HOMEBREW_BREWALL_VERSION = '1.1.0'
+HOMEBREW_BREWALL_VERSION = '1.2.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "1.1.0"
+  version "1.2.0"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
@@ -54,7 +54,17 @@ class Libre10 < Formula
     url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.9.8.tar.gz"
     sha1 "19ff863f54904c5eafb9d88960939842578f851c"
   end
-    
+
+  resource "anyjson" do
+    url "https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz"
+    sha1 ""
+  end
+
+  resource "simplejson" do
+    url "https://pypi.python.org/packages/source/s/simplejson/simplejson-3.6.5.tar.gz"
+    sha1 ""
+  end
+
   def install
     ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec+"lib/python2.7/site-packages"
@@ -64,6 +74,8 @@ class Libre10 < Formula
     resource("cherrypy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("requests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("anyjson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("simplejson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     #resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
