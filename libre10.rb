@@ -3,6 +3,7 @@ require "formula"
 # Documentation: https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
+
 HOMEBREW_BREWALL_VERSION = '1.2.1'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
@@ -20,10 +21,6 @@ class Libre10 < Formula
   depends_on "libjpeg-turbo"
   depends_on :java => "1.7"
   depends_on :python
-  #depends_on 'pycrypto' => [:python,"Crypto"]
-  #depends_on 'requests' => :python
-  #depends_on 'pillow' => [:python,"PIL"]
-  #depends_on 'docopt' => :python
 
   resource "pycrypto" do
     url "https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz"
@@ -57,12 +54,12 @@ class Libre10 < Formula
 
   resource "anyjson" do
     url "https://pypi.python.org/packages/source/a/anyjson/anyjson-0.3.3.tar.gz"
-    sha1 ""
+    sha1 "2cd3c6cc61206664268e0e8684dbadf6e2428497"
   end
 
   resource "simplejson" do
     url "https://pypi.python.org/packages/source/s/simplejson/simplejson-3.6.5.tar.gz"
-    sha1 ""
+    sha1 "4e3f2557fc8003115cf5d9c388845c03aec83121"
   end
 
   def install
