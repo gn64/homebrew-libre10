@@ -3,10 +3,10 @@ require "formula"
 # Documentation: https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-HOMEBREW_BREWALL_VERSION = '1.2.0'
+HOMEBREW_BREWALL_VERSION = '1.2.1'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "1.2.0"
+  version "1.2.1"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
@@ -76,7 +76,7 @@ class Libre10 < Formula
     resource("requests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("anyjson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("simplejson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    #resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
     #system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
