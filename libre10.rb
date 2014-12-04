@@ -4,10 +4,10 @@ require "formula"
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-HOMEBREW_BREWALL_VERSION = '1.2.2'
+HOMEBREW_BREWALL_VERSION = '1.4.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "1.2.2"
+  version "1.4.0"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
