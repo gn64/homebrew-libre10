@@ -4,10 +4,10 @@ require "formula"
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-HOMEBREW_BREWALL_VERSION = '1.4.0'
+HOMEBREW_BREWALL_VERSION = '1.5.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "1.4.0"
+  version "1.5.0"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
@@ -80,6 +80,7 @@ class Libre10 < Formula
     #system "cp conf/org.rec10.libre10.wsgi.plist ~/Library/LaunchAgents"
     system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www"
     bin.env_script_all_files(libexec+"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+    system "libre10 update"
   end
 
   test do
