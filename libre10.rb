@@ -46,6 +46,11 @@ class Libre10 < Formula
     url "https://pypi.python.org/packages/source/C/CherryPy/CherryPy-3.6.0.tar.gz"
     sha1 "bbbeb4e2bb81cb37049a32f78c6cb151b12d7857"
   end
+
+  resource "paste" do
+    url "https://pypi.python.org/packages/source/P/Paste/Paste-1.7.5.1.tar.gz"
+    sha1 ""
+  end
   
   resource "sqlalchemy" do
     url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.9.8.tar.gz"
@@ -74,6 +79,7 @@ class Libre10 < Formula
     resource("anyjson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("simplejson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("paste").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
     #system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
