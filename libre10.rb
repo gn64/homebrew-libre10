@@ -8,8 +8,8 @@ HOMEBREW_BREWALL_VERSION = '1.5.0'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
   version "1.5.0"
-  url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
-  #url 'https://bitbucket.org/gn64/libre10.git', :branch => "release/1.5"
+  #url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
+  url 'https://bitbucket.org/gn64/libre10.git', :branch => "release/1.5"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
   head 'https://bitbucket.org/gn64/libre10.git', :branch => 'master'
@@ -72,6 +72,8 @@ class Libre10 < Formula
     ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec+"lib/python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", prefix+"lib/python2.7/site-packages"
+    ENV.prepend_create_path "PATH", prefix+"/usr/local/bin"
+    ENV.prepend_create_path "PATH", libexec+"/usr/local/bin"
     resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
@@ -84,7 +86,7 @@ class Libre10 < Formula
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
     system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
     system "cp conf/org.rec10.libre10.wsgi.plist ~/Library/LaunchAgents"
-    system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www"
+    system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www --disable-env --python-path=/usr/local/bin/python2"
     bin.env_script_all_files(libexec+"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     #system "#{bin}/libre10 import"
   end
