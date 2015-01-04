@@ -4,11 +4,12 @@ require "formula"
 #                /usr/local/Library/Contributions/example-formula.rb
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 
-HOMEBREW_BREWALL_VERSION = '1.4.0'
+HOMEBREW_BREWALL_VERSION = '1.5.2'
 class Libre10 < Formula
   homepage "http://www.rec10.org/?page_id=138"
-  version "1.4.0"
+  version "1.5.2"
   url 'https://bitbucket.org/gn64/libre10.git', :tag => "#{HOMEBREW_BREWALL_VERSION}"
+  #url 'https://bitbucket.org/gn64/libre10.git', :branch => "release/1.5"
   sha1 ""
   version HOMEBREW_BREWALL_VERSION
   head 'https://bitbucket.org/gn64/libre10.git', :branch => 'master'
@@ -46,6 +47,11 @@ class Libre10 < Formula
     url "https://pypi.python.org/packages/source/C/CherryPy/CherryPy-3.6.0.tar.gz"
     sha1 "bbbeb4e2bb81cb37049a32f78c6cb151b12d7857"
   end
+
+  resource "paste" do
+    url "https://pypi.python.org/packages/source/P/Paste/Paste-1.7.5.1.tar.gz"
+    sha1 "11d3c5a2dc52c5e725139a9334574291a0f9d04f"
+  end
   
   resource "sqlalchemy" do
     url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-0.9.8.tar.gz"
@@ -66,20 +72,23 @@ class Libre10 < Formula
     ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec+"lib/python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", prefix+"lib/python2.7/site-packages"
+    ENV.prepend_create_path "PATH", prefix+"/usr/local/bin"
+    ENV.prepend_create_path "PATH", libexec+"/usr/local/bin"
     resource("pillow").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("docopt").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
-    resource("cherrypy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("pycrypto").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("requests").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("anyjson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("simplejson").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     resource("sqlalchemy").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
+    resource("paste").stage { system "python", "setup.py", "install", "--prefix=#{libexec}" }
     inreplace "conf/org.rec10.libre10.solr.plist", "[username]", `whoami`.gsub("\n","")
     inreplace "conf/org.rec10.libre10.wsgi.plist", "[username]", `whoami`.gsub("\n","")
-    #system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
-    #system "cp conf/org.rec10.libre10.wsgi.plist ~/Library/LaunchAgents"
-    system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www"
+    system "cp conf/org.rec10.libre10.solr.plist ~/Library/LaunchAgents"
+    system "cp conf/org.rec10.libre10.wsgi.plist ~/Library/LaunchAgents"
+    system "python ./www/libre10_exec.py install --data-dir=#{HOMEBREW_PREFIX}/var --bin-dir=#{bin} --www-dir=#{prefix}/www --disable-env --python-path=/usr/local/bin/python2"
     bin.env_script_all_files(libexec+"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+    #system "#{bin}/libre10 import"
   end
 
   test do
